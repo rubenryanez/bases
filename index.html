@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<meta name="theme-color" content="#0f2c52">
+<title>Bases Concurso Avanzadas 2026 | LarrainVial × Consorcio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+  :root {
+    --navy:        #0f2c52;
+    --navy-dark:   #0a1f3d;
+    --navy-light:  #1a3d6e;
+    --crimson:     #C41230;
+    --beige:       #e8dccb;
+    --beige-light: #f1e7d8;
+    --text:        #2a2a2a;
+    --text-soft:   #555;
+    --gray-line:   #d8d8d8;
+    --gray-bg:     #f4f5f7;
+    --white:       #ffffff;
+    --shadow-sm:   0 2px 8px rgba(15, 44, 82, 0.06);
+    --shadow-md:   0 6px 24px rgba(15, 44, 82, 0.10);
+  }
+
+  html, body {
+    background: var(--gray-bg);
+    font-family: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    line-height: 1.55;
+  }
+
+  body { min-height: 100vh; padding-bottom: 40px; }
+
+  /* ═══ TOP BAR ═══ */
+  .topbar {
+    background: var(--white);
+    border-bottom: 1px solid var(--gray-line);
+    padding: 14px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .topbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 900;
+    font-size: 13px;
+    color: var(--navy);
+    letter-spacing: 0.01em;
+  }
+  .topbar-brand-mark {
+    width: 12px; height: 12px;
+    background: var(--crimson);
+    border-radius: 2px;
+  }
+  .topbar-badge {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--navy);
+    background: var(--beige-light);
+    padding: 5px 10px;
+    border-radius: 4px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* ═══ SELECTOR ═══ */
+  .selector-wrap {
+    max-width: 880px;
+    margin: 24px auto 20px;
+    padding: 0 20px;
+  }
+
+  .selector-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--navy);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .selector-label::before {
+    content: '';
+    width: 3px; height: 12px;
+    background: var(--crimson);
+  }
+
+  .category-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .cat-btn {
+    background: var(--white);
+    border: 1.5px solid var(--gray-line);
+    border-radius: 8px;
+    padding: 13px 16px;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: 'Lato', sans-serif;
+    width: 100%;
+  }
+  .cat-btn:hover { border-color: var(--navy-light); background: #fafbfc; }
+  .cat-btn:active { transform: scale(0.99); }
+  .cat-btn.active {
+    border-color: var(--navy);
+    background: var(--navy);
+    box-shadow: var(--shadow-md);
+  }
+  .cat-btn.active .cat-title,
+  .cat-btn.active .cat-subtitle { color: var(--white); }
+  .cat-btn.active .cat-icon { background: var(--crimson); color: var(--white); }
+  .cat-btn.active .cat-arrow { color: var(--white); }
+
+  .cat-icon {
+    width: 36px; height: 36px;
+    border-radius: 6px;
+    background: var(--beige-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-weight: 900;
+    font-size: 11px;
+    color: var(--navy);
+    transition: all 0.2s;
+    letter-spacing: 0.02em;
+  }
+  .cat-text { flex: 1; min-width: 0; }
+  .cat-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1.25;
+    margin-bottom: 1px;
+  }
+  .cat-subtitle {
+    font-size: 11px;
+    color: var(--text-soft);
+    line-height: 1.3;
+  }
+  .cat-arrow { color: var(--gray-line); flex-shrink: 0; transition: all 0.2s; }
+
+  /* ═══ DOCUMENTO ═══ */
+  .doc-wrap {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .doc {
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+    animation: fadeIn 0.35s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .doc-inner { padding: 48px 56px 36px; }
+
+  /* Encabezado Consorcio */
+  .doc-header {
+    text-align: center;
+    margin-bottom: 36px;
+  }
+
+  .consorcio-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 4px;
+  }
+  .consorcio-mark {
+    color: var(--navy);
+    flex-shrink: 0;
+    line-height: 0;
+  }
+  .consorcio-text {
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--navy);
+    letter-spacing: -0.01em;
+    line-height: 1;
+  }
+  .consorcio-divider {
+    width: 1.5px;
+    height: 22px;
+    background: var(--gray-line);
+  }
+  .consorcio-years {
+    font-size: 18px;
+    font-weight: 900;
+    color: var(--navy);
+    letter-spacing: -0.01em;
+  }
+  .consorcio-years-sub {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--navy);
+    margin-left: 2px;
+  }
+
+  /* Título principal */
+  .doc-title {
+    text-align: center;
+    margin: 36px 0 28px;
+  }
+  .doc-title h1 {
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--navy);
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+    margin-bottom: 6px;
+  }
+  .doc-title h2 {
+    font-size: 19px;
+    font-weight: 400;
+    color: var(--navy);
+    letter-spacing: -0.005em;
+  }
+
+  /* Cuerpo */
+  .doc-body { font-size: 14px; color: var(--text); line-height: 1.65; }
+  .doc-body p { margin-bottom: 14px; }
+  .doc-body strong { font-weight: 700; color: var(--text); }
+
+  .doc-section-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-top: 22px;
+    margin-bottom: 10px;
+  }
+
+  .doc-list {
+    list-style: none;
+    counter-reset: item;
+    margin-bottom: 16px;
+  }
+  .doc-list li {
+    counter-increment: item;
+    padding-left: 28px;
+    position: relative;
+    margin-bottom: 10px;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .doc-list li::before {
+    content: counter(item) ".";
+    position: absolute;
+    left: 0;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .doc-bullets {
+    list-style: none;
+    margin-bottom: 16px;
+  }
+  .doc-bullets li {
+    padding-left: 18px;
+    position: relative;
+    margin-bottom: 8px;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .doc-bullets li::before {
+    content: '•';
+    position: absolute;
+    left: 4px;
+    color: var(--text);
+    font-weight: 700;
+  }
+
+  /* Tabla de premios */
+  .prize-table-wrap {
+    margin: 22px auto;
+    max-width: 540px;
+  }
+  .prize-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(15,44,82,0.08);
+  }
+  .prize-table thead.title-row th {
+    background: var(--navy);
+    color: var(--white);
+    font-size: 14px;
+    font-weight: 700;
+    padding: 11px 14px;
+    text-align: center;
+    letter-spacing: 0.01em;
+  }
+  .prize-table thead.head-row th {
+    background: var(--beige);
+    color: var(--navy);
+    font-weight: 700;
+    font-size: 13px;
+    padding: 10px 14px;
+    text-align: center;
+    border-bottom: 1px solid #d4c8b5;
+  }
+  .prize-table thead.head-row th:first-child { text-align: left; padding-left: 28px; }
+  .prize-table thead.head-row th:last-child { text-align: right; padding-right: 28px; }
+
+  .prize-table td {
+    background: var(--white);
+    padding: 9px 14px;
+    border-bottom: 1px solid #f0eee9;
+    font-size: 13px;
+    color: var(--text);
+    text-align: center;
+  }
+  .prize-table td:first-child { text-align: left; padding-left: 28px; }
+  .prize-table td:last-child { text-align: right; padding-right: 28px; font-weight: 700; }
+  .prize-table tr:last-child td { border-bottom: none; }
+
+  /* Tabla sucursales */
+  .branch-table-wrap { margin: 18px 0 24px; overflow-x: auto; }
+  .branch-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 8px;
+    overflow: hidden;
+    font-size: 12.5px;
+    box-shadow: 0 2px 8px rgba(15,44,82,0.08);
+  }
+  .branch-table thead.title-row th {
+    background: var(--navy);
+    color: var(--white);
+    font-size: 13px;
+    font-weight: 700;
+    padding: 10px 12px;
+    text-align: center;
+  }
+  .branch-table thead.head-row th {
+    background: var(--beige);
+    color: var(--navy);
+    font-weight: 700;
+    padding: 9px 12px;
+    text-align: left;
+    border-bottom: 1px solid #d4c8b5;
+    vertical-align: top;
+  }
+  .branch-table td {
+    background: var(--white);
+    padding: 7px 12px;
+    border-bottom: 1px solid #f0eee9;
+    color: var(--text);
+    vertical-align: top;
+    line-height: 1.5;
+  }
+  .branch-table tr:last-child td { border-bottom: none; }
+
+  /* Footer del doc */
+  .doc-footer {
+    background: var(--navy);
+    padding: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+  .doc-footer-logo {
+    font-size: 22px;
+    font-weight: 900;
+    color: var(--white);
+    letter-spacing: -0.01em;
+  }
+  .doc-footer-mark {
+    width: 12px; height: 12px;
+    background: var(--crimson);
+    margin-left: 4px;
+  }
+
+  /* Acciones */
+  .doc-actions {
+    max-width: 880px;
+    margin: 16px auto 0;
+    padding: 0 20px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .action-btn {
+    background: var(--white);
+    color: var(--navy);
+    border: 1.5px solid var(--navy);
+    padding: 9px 16px;
+    border-radius: 6px;
+    font-family: 'Lato', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s;
+    letter-spacing: 0.03em;
+  }
+  .action-btn:hover { background: var(--navy); color: var(--white); }
+
+  /* ═══ RESPONSIVE ═══ */
+  @media (max-width: 720px) {
+    .doc-inner { padding: 32px 24px 24px; }
+    .doc-title h1 { font-size: 24px; }
+    .doc-title h2 { font-size: 17px; }
+    .consorcio-text { font-size: 24px; }
+    .consorcio-years { font-size: 16px; }
+    .consorcio-years-sub { font-size: 13px; }
+    .consorcio-mark svg { width: 32px; height: 32px; }
+    .doc-body { font-size: 13.5px; }
+    .doc-list li, .doc-bullets li { font-size: 13.5px; }
+    .prize-table thead.title-row th { font-size: 13px; }
+    .prize-table thead.head-row th { font-size: 12px; padding: 9px 10px; }
+    .prize-table thead.head-row th:first-child { padding-left: 14px; }
+    .prize-table thead.head-row th:last-child { padding-right: 14px; }
+    .prize-table td { font-size: 12.5px; padding: 8px 10px; }
+    .prize-table td:first-child { padding-left: 14px; }
+    .prize-table td:last-child { padding-right: 14px; }
+    .branch-table { font-size: 11.5px; }
+    .branch-table thead.head-row th, .branch-table td { padding: 7px 9px; }
+    .doc-footer-logo { font-size: 19px; }
+  }
+
+  @media (max-width: 480px) {
+    .doc-inner { padding: 26px 18px 20px; }
+    .doc-title h1 { font-size: 21px; }
+    .doc-title h2 { font-size: 15px; }
+    .consorcio-logo { gap: 10px; }
+    .consorcio-text { font-size: 20px; }
+    .consorcio-years { font-size: 14px; }
+    .consorcio-years-sub { font-size: 12px; }
+    .consorcio-mark svg { width: 28px; height: 28px; }
+    .topbar { padding: 12px 16px; }
+    .topbar-brand { font-size: 12px; }
+    .topbar-badge { font-size: 9px; padding: 4px 8px; }
+    .selector-wrap, .doc-wrap, .doc-actions { padding: 0 16px; }
+    .doc-actions { justify-content: stretch; }
+    .action-btn { flex: 1; justify-content: center; }
+  }
+
+  @media (min-width: 900px) {
+    .category-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  }
+
+  /* Print */
+  @media print {
+    .topbar, .selector-wrap, .doc-actions { display: none; }
+    body { background: white; padding: 0; }
+    .doc { box-shadow: none; border-radius: 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<header class="topbar">
+  <div class="topbar-brand">
+    <span class="topbar-brand-mark"></span>
+    LarrainVial × Consorcio
+  </div>
+  <span class="topbar-badge">Avanzadas 2026</span>
+</header>
+
+<!-- SELECTOR -->
+<div class="selector-wrap">
+  <div class="selector-label">Selecciona la base según tu categoría</div>
+  <div class="category-grid" id="categoryGrid">
+    <button class="cat-btn active" data-base="ffvv">
+      <span class="cat-icon">FFVV</span>
+      <span class="cat-text">
+        <span class="cat-title">Ejecutivos Canal Fuerza de Ventas</span>
+        <span class="cat-subtitle">Bases para ejecutivos del canal FFVV</span>
+      </span>
+      <svg class="cat-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+    </button>
+    <button class="cat-btn" data-base="jjvv">
+      <span class="cat-icon">JJVV</span>
+      <span class="cat-text">
+        <span class="cat-title">Jefes de Venta</span>
+        <span class="cat-subtitle">Bases para Jefes de Venta canal FFVV</span>
+      </span>
+      <svg class="cat-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+    </button>
+    <button class="cat-btn" data-base="rel">
+      <span class="cat-icon">REL</span>
+      <span class="cat-text">
+        <span class="cat-title">Ejecutivos Canal Relación</span>
+        <span class="cat-subtitle">Bases para ejecutivos del canal Relación</span>
+      </span>
+      <svg class="cat-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+    </button>
+    <button class="cat-btn" data-base="jjoo">
+      <span class="cat-icon">JJOO</span>
+      <span class="cat-text">
+        <span class="cat-title">Jefes de Oficina</span>
+        <span class="cat-subtitle">Bases para Jefes de Oficina canal Relación</span>
+      </span>
+      <svg class="cat-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+    </button>
+    <button class="cat-btn" data-base="ases">
+      <span class="cat-icon">ASES</span>
+      <span class="cat-text">
+        <span class="cat-title">Asesores de Inversión y Jefes LVAM</span>
+        <span class="cat-subtitle">Bases para Asesores y Jefes Comerciales LVAM</span>
+      </span>
+      <svg class="cat-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+    </button>
+  </div>
+</div>
+
+<!-- DOCUMENTO -->
+<div class="doc-wrap">
+  <article class="doc" id="doc"></article>
+</div>
+
+<!-- ACCIONES -->
+<div class="doc-actions">
+  <button class="action-btn" id="printBtn">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+    Imprimir
+  </button>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════
+   CONTENIDO DE LAS 5 BASES — extraído de los PDFs oficiales
+   ═══════════════════════════════════════════════════════════════ */
+
+const BASES = {
+
+  ffvv: {
+    title: 'Bases Concurso Avanzadas 2026',
+    subtitle: 'Ejecutivos Canal Fuerza de Ventas',
+    period: '1 de abril al 30 de junio 2026.',
+    intro: 'Junto a LarrainVial premiaremos a los mejores ejecutivos del canal Fuerza de Venta con mayor captación neta obtenida durante el periodo. Para efectos del concurso, se considerarán las inversiones realizadas en <strong>Fondos Mutuos, Seguro Gold, Traspasos de APV e Inyecciones CUI.</strong>',
+    requisitos: [
+      'Registrar durante el periodo, una captación neta superior a MM$70 en el caso de ejecutivos de Santiago, y superior a MM$60 en el caso de ejecutivos de Regiones.',
+      'Contar con captación en al menos tres de las cuatro líneas de producto consideradas para el concurso: Fondos Mutuos, Seguro Gold, Traspasos APV e Inyecciones CUI.'
+    ],
+    tablaTitulo: 'Ejecutivos de Venta',
+    tablaFilas: [
+      ['Ranking',        '1° Lugar',          '$350.000'],
+      ['Ranking',        '2° Lugar',          '$250.000'],
+      ['Ranking',        '3° Lugar',          '$150.000'],
+      ['Sorteo',         '1 Sorteo',          '$100.000'],
+      ['Reconocimiento', '3 Reconocimientos', '$50.000']
+    ],
+    sorteo: 'Los ejecutivos que cumplan los requisitos del concurso y que finalicen el período desde el 4° lugar en adelante en el Ranking podrán participar en un sorteo. Para dicho sorteo, se asignará un cupo por cada MM$10 de captación neta. Entre más cupones se tengan, mayores serán las probabilidades de ganar.',
+    consideraciones: [
+      'Los productos considerados para el concurso son: Traspasos de APV en cualquiera de sus productos (APV UNO, APV Más, APV Prime, APV Fondo Experto), Seguro Gold, Seguro Gold Plus, Fondos Mutuos e Inyecciones CUI.',
+      'Se considera captación neta obtenida durante el periodo abril – junio (ajustada según Rut cliente).',
+      'Para el sorteo se considera 1 cupo por cada MM$10 de captación neta.',
+      'Se consideran solo negocios recaudados desde 1 de abril al 30 de junio, en base al informe de venta y al reporte de inyecciones CUI entregado por el equipo de planificación comercial.',
+      'No se considera la auto venta o venta entre Ejecutivos del canal.',
+      'El premio se pagará vía liquidación al mes siguiente.',
+      'El ejecutivo debe estar vigente al final del periodo del concurso, para recibir premio.',
+      'La captación neta obtenida durante periodo significa que se considerará toda la captación bruta del ejecutivo, pero se descontarán los rescates del cliente que aporte en el mismo periodo, generando el neto del cliente, por ejemplo: si el cliente ingresa $100 millones en agosto y los rescata en septiembre el bruto neto del periodo es $0.',
+      'La premiación se realizará en la reunión mensual de julio 2026.'
+    ],
+    reconocimientos: [
+      'Al ejecutivo con Mayor Captación de Traspaso APV + Inyecciones CUI.',
+      'Al ejecutivo con Mayor Captación de FFMM + Gold.',
+      'Al ejecutivo con Mayor Captación de clientes >=M$3 en FFMM.'
+    ]
+  },
+
+  jjvv: {
+    title: 'Bases Concurso Avanzadas 2026',
+    subtitle: 'Jefes de Venta',
+    period: '1 de abril al 30 de junio 2026.',
+    intro: 'Junto a LarrainVial premiaremos a los Jefes de Venta con mayor captación neta obtenida durante el periodo. Para efectos del concurso, se considerarán las inversiones realizadas en <strong>Fondos Mutuos, Seguro Gold, Traspasos de APV e Inyecciones CUI.</strong>',
+    requisitos: [
+      'Registrar, durante el periodo del concurso, una captación neta superior a MM$300 en el caso de Jefes de Ventas de Santiago, y superior a MM$250 en el caso de Jefes de Venta de Regiones.',
+      'Contar con al menos 30% de sus ejecutivos registrando ventas en Fondos Mutuos superiores a MM$3 durante el periodo del concurso.',
+      'Contar con captación en al menos tres de las cuatro líneas de producto consideradas para el concurso: Fondos Mutuos, Seguro Gold, Traspasos APV e Inyecciones CUI.'
+    ],
+    tablaTitulo: 'Jefes de Venta',
+    tablaFilas: [
+      ['Ranking',        '1° Lugar',          '$250.000'],
+      ['Ranking',        '2° Lugar',          '$100.000'],
+      ['Ranking',        '3° Lugar',          '$50.000'],
+      ['Sorteo',         '1 Sorteo',          '$100.000'],
+      ['Reconocimiento', '2 Reconocimientos', '$50.000']
+    ],
+    sorteo: 'Los Jefes de Venta que cumplan los requisitos del concurso y que finalicen el período desde el 4° lugar en adelante en el Ranking podrán participar en un sorteo. Para dicho sorteo, se asignará un cupo por cada MM$30 de captación neta. Entre más cupones se tengan, mayores serán las probabilidades de ganar.',
+    consideraciones: [
+      'Los productos considerados para el concurso son: Traspasos de APV en cualquiera de sus productos (APV UNO, APV Más, APV Prime, APV Fondo Experto), Seguro Gold, Seguro Gold Plus, Fondos Mutuos e Inyecciones CUI.',
+      'Se considera captación neta obtenida durante el periodo abril – junio (ajustada según Rut cliente).',
+      'Para el sorteo se considera 1 cupo por cada MM$30 de captación neta.',
+      'Se consideran solo negocios recaudados desde 1 de abril al 30 de junio, en base al informe de venta y al reporte de inyecciones CUI entregado por el equipo de planificación comercial.',
+      'No se considera la auto venta o venta entre Ejecutivos del canal.',
+      'El premio se pagará vía liquidación al mes siguiente.',
+      'El jefe de venta debe estar vigente al final del periodo del concurso, para recibir premio.',
+      'La captación neta del periodo significa que se considerará toda la captación bruta del ejecutivo, pero se descontarán los rescates del cliente que aporte en el mismo periodo, generando el neto del cliente, por ejemplo: si el cliente ingresa $100 millones en agosto y los rescata en septiembre el bruto neto del periodo es $0.',
+      'La premiación se realizará en la reunión mensual de julio 2026.'
+    ],
+    reconocimientos: [
+      'Al Jefe de Venta con Mayor Captación de Traspaso APV + Inyecciones CUI.',
+      'Al Jefe de Venta con Mayor Captación de FFMM + Gold.'
+    ]
+  },
+
+  rel: {
+    title: 'Bases Concurso Avanzadas 2026',
+    subtitle: 'Ejecutivos Canal Relación',
+    period: '1 de abril al 30 de junio 2026.',
+    intro: 'Junto a LarrainVial premiaremos a los mejores ejecutivos del canal Relación con mayor captación neta obtenida durante el periodo. Para efectos del concurso, se considerarán las inversiones realizadas en <strong>Fondos Mutuos, Seguro Gold, Traspasos de APV e Inyecciones CUI.</strong>',
+    requisitos: [
+      'Registrar durante el periodo, una captación neta superior a MM$55 en el caso de ejecutivos de Santiago, y superior a MM$45 en el caso de ejecutivos de Regiones.',
+      'Contar con captación en al menos tres de las cuatro líneas de producto consideradas para el concurso: Fondos Mutuos, Seguro Gold, Traspasos APV e Inyecciones CUI.'
+    ],
+    tablaTitulo: 'Ejecutivos Canal Relación',
+    tablaFilas: [
+      ['Ranking', '1° Lugar', '$200.000'],
+      ['Ranking', '2° Lugar', '$150.000'],
+      ['Ranking', '3° Lugar', '$100.000'],
+      ['Sorteo',  '1 Sorteo', '$50.000']
+    ],
+    sorteo: 'Los ejecutivos que cumplan los requisitos del concurso y que finalicen el período desde el 4° lugar en adelante en el Ranking podrán participar en un sorteo. Para dicho sorteo, se asignará un cupo por cada MM$10 de captación neta. Entre más cupones se tengan, mayores serán las probabilidades de ganar.',
+    consideraciones: [
+      'Los productos considerados para el concurso son: Traspasos de APV en cualquiera de sus productos (APV UNO, APV Más, APV Prime, APV Fondo Experto), Seguro Gold, Seguro Gold Plus, Fondos Mutuos e Inyecciones CUI.',
+      'Se considera captación neta obtenida durante el periodo abril – junio (ajustada según Rut cliente).',
+      'Para el sorteo se considera 1 cupo por cada MM$10 de captación neta.',
+      'Se consideran solo negocios recaudados desde 1 de abril al 30 de junio, en base al informe de venta y al reporte de inyecciones CUI entregado por el equipo de planificación comercial.',
+      'No se considera la auto venta o venta entre Ejecutivos del canal.',
+      'El premio se pagará vía liquidación al mes siguiente.',
+      'El ejecutivo debe estar vigente al final del periodo del concurso, para recibir premio.',
+      'La captación neta obtenida durante periodo significa que se considerará toda la captación bruta del ejecutivo, pero se descontarán los rescates del cliente que aporte en el mismo periodo, generando el neto del cliente, por ejemplo: si el cliente ingresa $100 millones en agosto y los rescata en septiembre el bruto neto del periodo es $0.',
+      'La premiación se realizará en la reunión mensual de julio 2026.'
+    ],
+    reconocimientos: [
+      'Al ejecutivo con Mayor Captación de Traspaso APV + Inyecciones CUI.',
+      'Al ejecutivo con Mayor Captación de FFMM + Gold.',
+      'Al ejecutivo con Mayor Captación de clientes >=M$3 en FFMM.'
+    ]
+  },
+
+  jjoo: {
+    title: 'Bases Concurso Avanzadas 2026',
+    subtitle: 'Jefes de Oficina',
+    period: '1 de abril al 30 de junio 2026.',
+    intro: 'Junto a LarrainVial premiaremos a los Jefes de Oficina con mayor captación neta obtenida durante el periodo. Para efectos del concurso, se considerarán las inversiones realizadas en <strong>Fondos Mutuos, Seguro Gold, Traspasos de APV e Inyecciones CUI.</strong>',
+    requisitos: [
+      'Registrar, durante el periodo del concurso, una captación neta superior a MM$500 en el caso de Jefes de Oficina de Santiago, y superior a MM$300 en el caso de Jefes de Oficina de Regiones.',
+      'Contar con al menos el 70% de sus ejecutivos registrando ventas en Fondos Mutuos superiores a MM$3 para el caso de Santiago, y al menos el 65% para el caso de Regiones, durante el período del concurso.',
+      'Contar con captación en al menos tres de las cuatro líneas de producto consideradas para el concurso: Fondos Mutuos, Seguro Gold, Traspasos APV e Inyecciones CUI.'
+    ],
+    tablaTitulo: 'Jefes de Oficina Canal Relación',
+    tablaFilas: [
+      ['Ranking', '1° Lugar', '$200.000'],
+      ['Ranking', '2° Lugar', '$100.000'],
+      ['Ranking', '3° Lugar', '$50.000'],
+      ['Sorteo',  '1 Sorteo', '$50.000']
+    ],
+    sorteo: 'Los Jefes de Oficina que cumplan los requisitos del concurso y que finalicen el período desde el 4° lugar en adelante en el Ranking podrán participar en un sorteo. Para dicho sorteo, se asignará un cupo por cada MM$30 de captación neta. Entre más cupones se tengan, mayores serán las probabilidades de ganar.',
+    consideraciones: [
+      'Los productos considerados para el concurso son: Traspasos de APV en cualquiera de sus productos (APV UNO, APV Más, APV Prime, APV Fondo Experto), Seguro Gold, Seguro Gold Plus, Fondos Mutuos e Inyecciones CUI.',
+      'Se considera captación neta obtenida durante el periodo abril – junio (ajustada según Rut cliente).',
+      'Para el sorteo se considera 1 cupo por cada MM$30 de captación neta.',
+      'Se consideran solo negocios recaudados desde 1 de abril al 30 de junio, en base al informe de venta y al reporte de inyecciones CUI entregado por el equipo de planificación comercial.',
+      'No se considera la auto venta o venta entre Ejecutivos del canal.',
+      'El premio se pagará vía liquidación al mes siguiente.',
+      'El Jefe de Oficina debe estar vigente al final del periodo del concurso, para recibir premio.',
+      'La captación neta del periodo significa que se considerará toda la captación bruta del ejecutivo, pero se descontarán los rescates del cliente que aporte en el mismo periodo, generando el neto del cliente, por ejemplo: si el cliente ingresa $100 millones en agosto y los rescata en septiembre el bruto neto del periodo es $0.',
+      'La premiación se realizará en la reunión mensual de julio 2026.'
+    ]
+  },
+
+  ases: {
+    title: 'Bases Concurso Avanzadas 2026',
+    subtitle: 'Asesores de Inversión y Jefes LVAM',
+    period: '1 de abril al 30 de abril 2026.',
+    intro: 'Junto a LarrainVial premiaremos a los Asesores de inversiones o jefes comerciales con mayor captación neta obtenida durante el periodo, de acuerdo con su clasificación correspondiente: Corporativos, Santiago, Regiones 1 y Regiones 2. Para efectos del concurso, se considerarán las inversiones realizadas en <strong>Fondos Mutuos, Seguro Gold, Traspasos de APV e Inyecciones CUI.</strong>',
+    premioTexto: 'Se premiará, en cada categoría de sucursal, al Asesor de Inversiones o Jefe Comercial que registre la mayor captación neta obtenida durante el período del concurso.',
+    tablaTitulo: 'Premio por captación bruta',
+    tablaFilas: [
+      ['Ranking Corporativo', '1° Lugar',          '$250.000'],
+      ['Ranking Santiago',    '1° Lugar',          '$250.000'],
+      ['Ranking Regiones 1',  '1° Lugar',          '$200.000'],
+      ['Ranking Regiones 2',  '1° Lugar',          '$200.000'],
+      ['Reconocimientos',     '4 reconocimientos', '$100.000']
+    ],
+    reconocimientosTexto: 'Por cada sucursal, se entregará un premio de reconocimiento por desempeño colectivo al equipo que registre el mayor porcentaje de ejecutivos con captación neta clasificada durante el período del concurso. Para estos efectos, se considerarán como ejecutivos con captación neta clasificada aquellos que registren captaciones superiores a MM$70 en Santiago y superiores a MM$60 en Regiones.',
+    sucursales: {
+      corporativos: ['Corporativo 1', 'Corporativo 2', 'Corporativo 3'],
+      santiago:     ['El Bosque - C Costanera', 'Switch - Maipú – Pte. Alto - Alto Valor', 'Agustinas - Mac Iver'],
+      regiones1:    ['Concepción', 'Viña del mar', 'Antofagasta'],
+      regiones2:    ['Iquique', 'La Serena', 'Temuco', 'Puerto Montt', 'Punta Arenas']
+    },
+    consideraciones: [
+      'Los productos considerados para el concurso son: Traspasos de APV en cualquiera de sus productos (APV UNO, APV Más, APV Prime, APV Fondo Experto), Seguro Gold, Seguro Gold Plus, Fondos Mutuos e Inyecciones CUI.',
+      'Se considera captación neta obtenida durante el periodo abril – junio (ajustada según Rut cliente).',
+      'Se consideran solo negocios recaudados desde 1 de abril al 30 de junio, en base al informe de venta y al reporte de inyecciones CUI entregado por el equipo de planificación comercial.',
+      'No se considera la auto venta o venta entre Ejecutivos del canal.',
+      'El premio se pagará vía liquidación al mes siguiente.',
+      'Asesor de inversiones y/o jefe comercial debe estar vigente al final del periodo del concurso, para recibir premio.',
+      'La captación neta obtenida durante periodo significa que se considerará toda la captación bruta del ejecutivo, pero se descontarán los rescates del cliente que aporte en el mismo periodo, generando el neto del cliente, por ejemplo: si el cliente ingresa $100 millones en agosto y los rescata en septiembre el bruto neto del periodo es $0.',
+      'La premiación se realizará en la reunión mensual de julio 2026.'
+    ]
+  }
+};
+
+/* ═══════════════════════════════════════════════════════════════
+   COMPONENTES DE RENDERIZADO
+   ═══════════════════════════════════════════════════════════════ */
+
+const HEADER_HTML = `
+  <div class="doc-header">
+    <div class="consorcio-logo">
+      <span class="consorcio-mark">
+        <svg width="38" height="38" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 46 L30 14 L36 14 L18 38 L52 38 L52 46 Z" fill="currentColor"/>
+          <path d="M14 36 L30 14 L34 19 L20 36 Z" fill="white" opacity="0.25"/>
+        </svg>
+      </span>
+      <span class="consorcio-text">consorcio</span>
+      <span class="consorcio-divider"></span>
+      <span><span class="consorcio-years">110</span><span class="consorcio-years-sub"> años</span></span>
+    </div>
+  </div>
+`;
+
+const FOOTER_HTML = `
+  <div class="doc-footer">
+    <span class="doc-footer-logo">LarrainVial</span>
+    <span class="doc-footer-mark"></span>
+  </div>
+`;
+
+function renderPrizeTable(titulo, filas) {
+  const rows = filas.map(f => `<tr><td>${f[0]}</td><td>${f[1]}</td><td>${f[2]}</td></tr>`).join('');
+  return `
+    <div class="prize-table-wrap">
+      <table class="prize-table">
+        <thead class="title-row"><tr><th colspan="3">${titulo}</th></tr></thead>
+        <thead class="head-row"><tr><th>Categoría</th><th>Premio por<br>captación bruta</th><th>Premio</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>
+  `;
+}
+
+function renderBranchTable(s) {
+  const maxLen = Math.max(s.corporativos.length, s.santiago.length, s.regiones1.length, s.regiones2.length);
+  let rows = '';
+  for (let i = 0; i < maxLen; i++) {
+    rows += `
+      <tr>
+        <td>${s.corporativos[i] || ''}</td>
+        <td>${s.santiago[i] || ''}</td>
+        <td>${s.regiones1[i] || ''}</td>
+        <td>${s.regiones2[i] || ''}</td>
+      </tr>
+    `;
+  }
+  return `
+    <div class="branch-table-wrap">
+      <table class="branch-table">
+        <thead class="title-row"><tr><th colspan="4">Detalle según categoría</th></tr></thead>
+        <thead class="head-row"><tr><th>Corporativos</th><th>Santiago</th><th>Regiones 1</th><th>Regiones 2</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>
+  `;
+}
+
+function renderBase(key) {
+  const b = BASES[key];
+  if (!b) return '';
+
+  let body = '';
+  body += `<p><strong>Período:</strong> ${b.period}</p>`;
+  body += `<p>${b.intro}</p>`;
+
+  if (b.premioTexto) {
+    body += `<div class="doc-section-title">Premio por captación neta:</div>`;
+    body += `<p>${b.premioTexto}</p>`;
+    body += `<p>A continuación, se presenta la tabla de categorías a premios:</p>`;
+    body += renderPrizeTable(b.tablaTitulo, b.tablaFilas);
+  }
+
+  if (b.requisitos) {
+    body += `<div class="doc-section-title">Requisitos:</div>`;
+    body += `<p>Podrán acceder al concurso aquellos que cumplan con los siguientes requisitos:</p>`;
+    body += `<ol class="doc-list">${b.requisitos.map(r => `<li>${r}</li>`).join('')}</ol>`;
+    body += `<p>A continuación, se presenta la tabla de categorías a premiar:</p>`;
+    body += renderPrizeTable(b.tablaTitulo, b.tablaFilas);
+  }
+
+  if (b.sorteo) {
+    body += `<div class="doc-section-title">Sorteo:</div>`;
+    body += `<p>${b.sorteo}</p>`;
+  }
+
+  if (b.reconocimientosTexto) {
+    body += `<div class="doc-section-title">Reconocimientos:</div>`;
+    body += `<p>${b.reconocimientosTexto}</p>`;
+  }
+
+  if (b.sucursales) {
+    body += `<div class="doc-section-title">Clasificación por sucursales:</div>`;
+    body += renderBranchTable(b.sucursales);
+  }
+
+  if (b.consideraciones) {
+    body += `<div class="doc-section-title">Consideraciones:</div>`;
+    body += `<ul class="doc-bullets">${b.consideraciones.map(c => `<li>${c}</li>`).join('')}</ul>`;
+  }
+
+  if (b.reconocimientos) {
+    body += `<div class="doc-section-title">Reconocimientos:</div>`;
+    body += `<ul class="doc-bullets">${b.reconocimientos.map(r => `<li>${r}</li>`).join('')}</ul>`;
+  }
+
+  return `
+    <div class="doc-inner">
+      ${HEADER_HTML}
+      <div class="doc-title">
+        <h1>${b.title}</h1>
+        <h2>${b.subtitle}</h2>
+      </div>
+      <div class="doc-body">${body}</div>
+    </div>
+    ${FOOTER_HTML}
+  `;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   LÓGICA DE INTERACCIÓN
+   ═══════════════════════════════════════════════════════════════ */
+
+const grid  = document.getElementById('categoryGrid');
+const docEl = document.getElementById('doc');
+
+function loadBase(key) {
+  docEl.innerHTML = renderBase(key);
+  grid.querySelectorAll('.cat-btn').forEach(b => {
+    b.classList.toggle('active', b.getAttribute('data-base') === key);
+  });
+  // Actualizar hash sin saltar
+  history.replaceState(null, '', '#' + key);
+}
+
+grid.addEventListener('click', (e) => {
+  const btn = e.target.closest('.cat-btn');
+  if (!btn) return;
+  const key = btn.getAttribute('data-base');
+  loadBase(key);
+
+  if (window.innerWidth < 900) {
+    document.querySelector('.doc-wrap').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+});
+
+document.getElementById('printBtn').addEventListener('click', () => window.print());
+
+// Carga inicial
+const hash = window.location.hash.replace('#', '');
+const initial = BASES[hash] ? hash : 'ffvv';
+loadBase(initial);
+</script>
+
+</body>
+</html>
