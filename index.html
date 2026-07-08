@@ -394,94 +394,183 @@
     background: var(--blue);
   }
 
-  /* Tabla de premios */
-  .prize-table-wrap {
-    margin: 28px 0;
-  }
-  .prize-table {
-    width: 100%;
-    border-collapse: collapse;
-    border-radius: var(--radius-sm);
-    overflow: hidden;
-    background: var(--bg);
-    box-shadow: inset 0 0 0 1px var(--sep);
-  }
-  .prize-table thead.title-row th {
-    background: transparent;
-    color: var(--text);
+  /* ═══ BLOQUE DE DATOS (tabla + tarjetas) ═══ */
+  .data-block { margin: 28px 0; }
+  .data-block-title {
     font-size: 18px;
     font-weight: 700;
+    color: var(--text);
     letter-spacing: -0.015em;
-    padding: 20px 24px 4px;
-    text-align: left;
+    margin-bottom: 14px;
   }
-  .prize-table thead.head-row th {
-    background: transparent;
-    color: var(--text-soft);
-    font-weight: 600;
-    font-size: 12px;
-    letter-spacing: 0.03em;
-    text-transform: uppercase;
-    padding: 14px 24px;
-    text-align: center;
-    border-bottom: 1px solid var(--sep);
-  }
-  .prize-table thead.head-row th:first-child { text-align: left; }
-  .prize-table thead.head-row th:last-child { text-align: right; }
 
-  .prize-table td {
-    background: transparent;
-    padding: 15px 24px;
-    border-bottom: 1px solid var(--sep);
+  /* Tablas ocultas por defecto (mobile-first) */
+  .prize-table-wrap,
+  .branch-table-wrap { display: none; }
+
+  /* ─── Tarjetas de premios (MÓVIL, por defecto) ─── */
+  .prize-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .prize-card {
+    background: var(--card);
+    border: 1px solid var(--sep);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-xs);
+    padding: 20px 22px;
+  }
+  .prize-card-amount {
+    font-size: 30px;
+    font-weight: 700;
+    color: var(--blue);
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    margin-bottom: 12px;
+  }
+  .prize-card-meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px 10px;
+  }
+  .prize-card-type {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--blue);
+    background: var(--blue-soft);
+    padding: 5px 12px;
+    border-radius: 980px;
+  }
+  .prize-card-pos {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text-soft);
+    letter-spacing: -0.01em;
+  }
+
+  /* ─── Tarjetas de sucursales (MÓVIL, por defecto) ─── */
+  .branch-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .branch-card {
+    background: var(--card);
+    border: 1px solid var(--sep);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-xs);
+    padding: 18px 22px;
+  }
+  .branch-card-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-soft);
+    margin-bottom: 12px;
+  }
+  .branch-card-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .branch-card-list li {
     font-size: 16px;
     color: var(--text);
-    text-align: center;
+    letter-spacing: -0.01em;
+    padding-left: 18px;
+    position: relative;
+    line-height: 1.4;
   }
-  .prize-table td:first-child { text-align: left; color: var(--text-soft); }
-  .prize-table td:last-child { text-align: right; font-weight: 600; color: var(--blue); }
-  .prize-table tbody tr:last-child td { border-bottom: none; }
-
-  /* Tabla sucursales */
-  .branch-table-wrap { margin: 24px 0; overflow-x: auto; }
-  .branch-table {
-    width: 100%;
-    border-collapse: collapse;
-    border-radius: var(--radius-sm);
-    overflow: hidden;
-    font-size: 15px;
-    background: var(--bg);
-    box-shadow: inset 0 0 0 1px var(--sep);
+  .branch-card-list li::before {
+    content: '';
+    position: absolute;
+    left: 2px; top: 9px;
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--blue);
   }
-  .branch-table thead.title-row th {
-    background: transparent;
-    color: var(--text);
-    font-size: 18px;
-    font-weight: 700;
-    letter-spacing: -0.015em;
-    padding: 20px 20px 4px;
-    text-align: left;
-  }
-  .branch-table thead.head-row th {
-    background: transparent;
+  .branch-card-list:empty::after {
+    content: '—';
     color: var(--text-soft);
-    font-weight: 600;
-    font-size: 12px;
-    letter-spacing: 0.03em;
-    text-transform: uppercase;
-    padding: 14px 20px;
-    text-align: left;
-    border-bottom: 1px solid var(--sep);
-    vertical-align: top;
   }
-  .branch-table td {
-    background: transparent;
-    padding: 12px 20px;
-    border-bottom: 1px solid var(--sep);
-    color: #333336;
-    vertical-align: top;
-    line-height: 1.5;
+
+  /* ─── DESKTOP (≥768px): tablas visibles, tarjetas ocultas ─── */
+  @media (min-width: 768px) {
+    .prize-cards,
+    .branch-cards { display: none; }
+    .prize-table-wrap { display: block; }
+    .branch-table-wrap { display: block; }
+
+    .prize-table {
+      width: 100%;
+      border-collapse: collapse;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      background: var(--bg);
+      box-shadow: inset 0 0 0 1px var(--sep);
+    }
+    .prize-table thead.head-row th {
+      background: transparent;
+      color: var(--text-soft);
+      font-weight: 600;
+      font-size: 12px;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      padding: 14px 24px;
+      text-align: center;
+      border-bottom: 1px solid var(--sep);
+    }
+    .prize-table thead.head-row th:first-child { text-align: left; }
+    .prize-table thead.head-row th:last-child { text-align: right; }
+    .prize-table td {
+      background: transparent;
+      padding: 15px 24px;
+      border-bottom: 1px solid var(--sep);
+      font-size: 16px;
+      color: var(--text);
+      text-align: center;
+    }
+    .prize-table td:first-child { text-align: left; color: var(--text-soft); }
+    .prize-table td:last-child { text-align: right; font-weight: 600; color: var(--blue); }
+    .prize-table tbody tr:last-child td { border-bottom: none; }
+
+    .branch-table {
+      width: 100%;
+      border-collapse: collapse;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      font-size: 15px;
+      background: var(--bg);
+      box-shadow: inset 0 0 0 1px var(--sep);
+    }
+    .branch-table thead.head-row th {
+      background: transparent;
+      color: var(--text-soft);
+      font-weight: 600;
+      font-size: 12px;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      padding: 14px 20px;
+      text-align: left;
+      border-bottom: 1px solid var(--sep);
+      vertical-align: top;
+    }
+    .branch-table td {
+      background: transparent;
+      padding: 12px 20px;
+      border-bottom: 1px solid var(--sep);
+      color: #333336;
+      vertical-align: top;
+      line-height: 1.5;
+    }
+    .branch-table tbody tr:last-child td { border-bottom: none; }
   }
-  .branch-table tbody tr:last-child td { border-bottom: none; }
 
   /* Footer del doc */
   .doc-footer {
@@ -572,11 +661,8 @@
     .doc-body { font-size: 16px; }
     .doc-list li, .doc-bullets li { font-size: 16px; }
     .doc-divider { margin: 36px 0; }
-    .prize-table thead.title-row th,
-    .branch-table thead.title-row th { font-size: 17px; }
-    .prize-table td { font-size: 15px; padding: 14px 18px; }
-    .prize-table thead.head-row th { padding: 13px 18px; }
-    .branch-table { font-size: 14px; }
+    .data-block-title { font-size: 17px; }
+    .prize-card-amount { font-size: 28px; }
   }
 
   @media (max-width: 480px) {
@@ -591,6 +677,9 @@
     .doc-section-title { font-size: 19px; }
     .doc-body, .doc-list li, .doc-bullets li { font-size: 15px; }
     .action-btn { flex: 1; justify-content: center; }
+    .prize-card { padding: 18px 20px; }
+    .prize-card-amount { font-size: 27px; }
+    .branch-card { padding: 16px 20px; }
   }
 
   /* Print */
@@ -603,6 +692,23 @@
     .doc-wrap { padding: 0; max-width: none; }
     .doc { box-shadow: none; border-radius: 0; }
     .doc-inner { padding: 40px 48px; }
+    /* En impresión usar siempre tablas, no tarjetas */
+    .prize-cards, .branch-cards { display: none !important; }
+    .prize-table-wrap, .branch-table-wrap { display: block !important; }
+    .prize-table { width: 100%; border-collapse: collapse; box-shadow: inset 0 0 0 1px var(--sep); }
+    .branch-table { width: 100%; border-collapse: collapse; box-shadow: inset 0 0 0 1px var(--sep); font-size: 13px; }
+    .prize-table thead.head-row th, .branch-table thead.head-row th {
+      font-size: 11px; text-transform: uppercase; color: var(--text-soft);
+      padding: 10px 14px; border-bottom: 1px solid var(--sep); text-align: center;
+    }
+    .branch-table thead.head-row th { text-align: left; }
+    .prize-table thead.head-row th:first-child { text-align: left; }
+    .prize-table thead.head-row th:last-child { text-align: right; }
+    .prize-table td { padding: 9px 14px; border-bottom: 1px solid var(--sep); text-align: center; font-size: 13px; }
+    .prize-table td:first-child { text-align: left; }
+    .prize-table td:last-child { text-align: right; font-weight: 600; color: var(--blue); }
+    .branch-table td { padding: 7px 14px; border-bottom: 1px solid var(--sep); vertical-align: top; }
+    .data-block { break-inside: avoid; }
   }
 </style>
 </head>
@@ -903,13 +1009,25 @@ const FOOTER_HTML = `
 
 function renderPrizeTable(titulo, filas) {
   const rows = filas.map(f => `<tr><td>${f[0]}</td><td>${f[1]}</td><td>${f[2]}</td></tr>`).join('');
+  const cards = filas.map(f => `
+    <div class="prize-card">
+      <div class="prize-card-amount">${f[2]}</div>
+      <div class="prize-card-meta">
+        <span class="prize-card-type">${f[0]}</span>
+        <span class="prize-card-pos">${f[1]}</span>
+      </div>
+    </div>
+  `).join('');
   return `
-    <div class="prize-table-wrap">
-      <table class="prize-table">
-        <thead class="title-row"><tr><th colspan="3">${titulo}</th></tr></thead>
-        <thead class="head-row"><tr><th>Categoría</th><th>Premio por<br>captación bruta</th><th>Premio</th></tr></thead>
-        <tbody>${rows}</tbody>
-      </table>
+    <div class="data-block">
+      <div class="data-block-title">${titulo}</div>
+      <div class="prize-table-wrap">
+        <table class="prize-table">
+          <thead class="head-row"><tr><th>Categoría</th><th>Premio por<br>captación bruta</th><th>Premio</th></tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>
+      <div class="prize-cards">${cards}</div>
     </div>
   `;
 }
@@ -927,13 +1045,30 @@ function renderBranchTable(s) {
       </tr>
     `;
   }
+  const groups = [
+    ['Corporativos', s.corporativos],
+    ['Santiago',     s.santiago],
+    ['Regiones 1',   s.regiones1],
+    ['Regiones 2',   s.regiones2]
+  ];
+  const cards = groups.map(([label, items]) => `
+    <div class="branch-card">
+      <div class="branch-card-label">${label}</div>
+      <ul class="branch-card-list">
+        ${items.filter(Boolean).map(it => `<li>${it}</li>`).join('')}
+      </ul>
+    </div>
+  `).join('');
   return `
-    <div class="branch-table-wrap">
-      <table class="branch-table">
-        <thead class="title-row"><tr><th colspan="4">Detalle según categoría</th></tr></thead>
-        <thead class="head-row"><tr><th>Corporativos</th><th>Santiago</th><th>Regiones 1</th><th>Regiones 2</th></tr></thead>
-        <tbody>${rows}</tbody>
-      </table>
+    <div class="data-block">
+      <div class="data-block-title">Detalle según categoría</div>
+      <div class="branch-table-wrap">
+        <table class="branch-table">
+          <thead class="head-row"><tr><th>Corporativos</th><th>Santiago</th><th>Regiones 1</th><th>Regiones 2</th></tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>
+      <div class="branch-cards">${cards}</div>
     </div>
   `;
 }
