@@ -3,556 +3,703 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-<meta name="theme-color" content="#0f2c52">
+<meta name="theme-color" content="#F5F5F7">
 <title>Bases Concurso Avanzadas 2026 | LarrainVial × Consorcio</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
   :root {
-    --navy:        #0f2c52;
-    --navy-dark:   #0a1f3d;
-    --navy-light:  #1a3d6e;
-    --crimson:     #C41230;
-    --beige:       #e8dccb;
-    --beige-light: #f1e7d8;
-    --text:        #2a2a2a;
-    --text-soft:   #555;
-    --gray-line:   #d8d8d8;
-    --gray-bg:     #f4f5f7;
-    --white:       #ffffff;
-    --shadow-sm:   0 2px 8px rgba(15, 44, 82, 0.06);
-    --shadow-md:   0 6px 24px rgba(15, 44, 82, 0.10);
+    --bg:          #F5F5F7;
+    --card:        #FFFFFF;
+    --text:        #1D1D1F;
+    --text-soft:   #6E6E73;
+    --sep:         #E5E5E7;
+    --blue:        #0A4FAF;
+    --blue-soft:   rgba(10, 79, 175, 0.08);
+    --blue-soft-2: rgba(10, 79, 175, 0.14);
+    --radius-lg:   24px;
+    --radius-md:   20px;
+    --radius-sm:   14px;
+    --shadow-xs:   0 1px 2px rgba(0,0,0,0.04);
+    --shadow-sm:   0 2px 8px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.03);
+    --shadow-md:   0 8px 30px rgba(0,0,0,0.06);
+    --ease:        cubic-bezier(0.4, 0.0, 0.2, 1);
   }
 
   html, body {
-    background: var(--gray-bg);
-    font-family: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif;
     color: var(--text);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    line-height: 1.55;
+    line-height: 1.5;
+    letter-spacing: -0.01em;
   }
 
-  body { min-height: 100vh; padding-bottom: 40px; }
+  body { height: 100vh; overflow: hidden; }
+  @supports (height: 100dvh) { body { height: 100dvh; } }
+
+  /* ═══ APP SHELL ═══ */
+  .app {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
 
   /* ═══ TOP BAR ═══ */
   .topbar {
-    background: var(--white);
-    border-bottom: 1px solid var(--gray-line);
-    padding: 14px 20px;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    box-shadow: var(--shadow-sm);
+    background: rgba(245, 245, 247, 0.8);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid var(--sep);
+    padding: 16px 24px;
+    flex-shrink: 0;
+    z-index: 60;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 12px;
+    gap: 14px;
   }
-
   .topbar-brand {
-    display: flex;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: -0.01em;
+    margin: 0 auto;
+  }
+  .topbar-brand .dot {
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: var(--text-soft);
+    display: inline-block;
+  }
+  .topbar-brand .sec { color: var(--text-soft); font-weight: 500; }
+
+  /* Botón menú (móvil) */
+  .menu-toggle {
+    display: none;
     align-items: center;
     gap: 8px;
-    font-weight: 900;
+    background: var(--card);
+    border: 1px solid var(--sep);
+    border-radius: 980px;
+    padding: 9px 16px 9px 14px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    cursor: pointer;
+    box-shadow: var(--shadow-xs);
+    transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease);
+  }
+  .menu-toggle:active { transform: scale(0.97); }
+  .menu-toggle svg { color: var(--text-soft); }
+
+  /* ═══ CUERPO (sidebar + documento) ═══ */
+  .shell-body {
+    flex: 1;
+    display: flex;
+    min-height: 0;
+    position: relative;
+  }
+
+  /* ═══ SIDEBAR ═══ */
+  .sidebar {
+    width: 288px;
+    flex-shrink: 0;
+    background: var(--bg);
+    border-right: 1px solid var(--sep);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow-y: auto;
+    padding: 24px 16px;
+    z-index: 50;
+  }
+  .sidebar-head {
+    padding: 4px 8px 0;
+    margin-bottom: 20px;
+  }
+  .sidebar-brand {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: -0.015em;
+    line-height: 1.3;
+  }
+  .sidebar-sub {
     font-size: 13px;
-    color: var(--navy);
-    letter-spacing: 0.01em;
-  }
-  .topbar-brand-mark {
-    width: 12px; height: 12px;
-    background: var(--crimson);
-    border-radius: 2px;
-  }
-  .topbar-badge {
-    font-size: 10px;
-    font-weight: 700;
-    color: var(--navy);
-    background: var(--beige-light);
-    padding: 5px 10px;
-    border-radius: 4px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+    color: var(--text-soft);
+    margin-top: 2px;
+    font-weight: 400;
   }
 
-  /* ═══ SELECTOR ═══ */
-  .selector-wrap {
-    max-width: 880px;
-    margin: 24px auto 20px;
-    padding: 0 20px;
-  }
-
-  .selector-label {
-    font-size: 12px;
-    font-weight: 700;
-    color: var(--navy);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    margin-bottom: 12px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .selector-label::before {
-    content: '';
-    width: 3px; height: 12px;
-    background: var(--crimson);
+  .sidebar-sep {
+    height: 1px;
+    background: var(--sep);
+    border: none;
+    margin: 4px 8px 16px;
   }
 
   .category-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
   }
 
   .cat-btn {
-    background: var(--white);
-    border: 1.5px solid var(--gray-line);
-    border-radius: 8px;
-    padding: 13px 16px;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 14px;
+    padding: 11px 12px;
     text-align: left;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: background 0.2s var(--ease), border-color 0.2s var(--ease), transform 0.15s var(--ease);
     display: flex;
     align-items: center;
     gap: 12px;
-    font-family: 'Lato', sans-serif;
+    font-family: inherit;
     width: 100%;
   }
-  .cat-btn:hover { border-color: var(--navy-light); background: #fafbfc; }
-  .cat-btn:active { transform: scale(0.99); }
+  .cat-btn:hover { background: rgba(0,0,0,0.035); }
+  .cat-btn:active { transform: scale(0.985); }
   .cat-btn.active {
-    border-color: var(--navy);
-    background: var(--navy);
-    box-shadow: var(--shadow-md);
+    background: var(--blue-soft);
+    border-color: var(--blue-soft-2);
   }
-  .cat-btn.active .cat-title,
-  .cat-btn.active .cat-subtitle { color: var(--white); }
-  .cat-btn.active .cat-icon { background: var(--crimson); color: var(--white); }
-  .cat-btn.active .cat-arrow { color: var(--white); }
+  .cat-btn.active .cat-icon { background: var(--blue); color: #fff; }
+  .cat-btn.active .cat-title { color: var(--blue); }
+  .cat-btn.active .cat-subtitle { color: var(--blue); opacity: 0.75; }
+  .cat-btn.active .cat-arrow { color: var(--blue); }
 
   .cat-icon {
-    width: 36px; height: 36px;
-    border-radius: 6px;
-    background: var(--beige-light);
+    width: 38px; height: 38px;
+    border-radius: 10px;
+    background: var(--blue-soft);
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    font-weight: 900;
-    font-size: 11px;
-    color: var(--navy);
-    transition: all 0.2s;
-    letter-spacing: 0.02em;
+    font-weight: 700;
+    font-size: 10.5px;
+    color: var(--blue);
+    transition: all 0.2s var(--ease);
+    letter-spacing: 0;
   }
   .cat-text { flex: 1; min-width: 0; }
   .cat-title {
     font-size: 14px;
-    font-weight: 700;
-    color: var(--navy);
+    font-weight: 600;
+    color: var(--text);
     line-height: 1.25;
     margin-bottom: 1px;
+    letter-spacing: -0.01em;
+    transition: color 0.2s var(--ease);
   }
   .cat-subtitle {
-    font-size: 11px;
+    font-size: 12px;
     color: var(--text-soft);
     line-height: 1.3;
-  }
-  .cat-arrow { color: var(--gray-line); flex-shrink: 0; transition: all 0.2s; }
-
-  /* ═══ DOCUMENTO ═══ */
-  .doc-wrap {
-    max-width: 880px;
-    margin: 0 auto;
-    padding: 0 20px;
-  }
-
-  .doc {
-    background: var(--white);
-    border-radius: 12px;
-    box-shadow: var(--shadow-md);
+    font-weight: 400;
+    white-space: nowrap;
     overflow: hidden;
-    animation: fadeIn 0.35s ease-out;
+    text-overflow: ellipsis;
+    transition: color 0.2s var(--ease);
+  }
+  .cat-arrow { display: none; }
+
+  /* Pie de la sidebar (panel de navegación) */
+  .sidebar-foot {
+    margin-top: auto;
+    padding-top: 20px;
+  }
+  .sidebar-meta {
+    padding: 0 8px;
+  }
+  .sidebar-meta-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-soft);
+    margin-bottom: 4px;
+  }
+  .sidebar-meta-value {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 16px;
+    letter-spacing: -0.01em;
+  }
+  .sidebar-meta-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--text-soft);
+    padding-top: 12px;
+    border-top: 1px solid var(--sep);
   }
 
-  @keyframes fadeIn {
+  /* Overlay (drawer móvil) */
+  .sidebar-overlay {
+    display: none;
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.28);
+    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px);
+    z-index: 45;
+    opacity: 0;
+    transition: opacity 0.25s var(--ease);
+  }
+
+  /* ═══ PANEL DOCUMENTO (scrollable) ═══ */
+  .doc-pane {
+    flex: 1;
+    min-width: 0;
+    height: 100%;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
+  .doc-wrap {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 32px 8px;
+  }
+  .doc {
+    background: var(--card);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--sep);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    animation: fadeSlide 0.28s var(--ease);
+  }
+  @keyframes fadeSlide {
     from { opacity: 0; transform: translateY(8px); }
     to   { opacity: 1; transform: translateY(0); }
   }
 
-  .doc-inner { padding: 48px 56px 36px; }
+  .doc-inner { padding: 72px 72px 56px; }
 
-  /* Encabezado Consorcio */
+  /* Encabezado */
   .doc-header {
     text-align: center;
-    margin-bottom: 36px;
+    margin-bottom: 12px;
   }
-
-  .consorcio-logo {
+  .doc-brand {
     display: inline-flex;
     align-items: center;
-    gap: 14px;
-    margin-bottom: 4px;
-  }
-  .consorcio-mark {
-    color: var(--navy);
-    flex-shrink: 0;
-    line-height: 0;
-  }
-  .consorcio-text {
-    font-size: 28px;
-    font-weight: 900;
-    color: var(--navy);
-    letter-spacing: -0.01em;
-    line-height: 1;
-  }
-  .consorcio-divider {
-    width: 1.5px;
-    height: 22px;
-    background: var(--gray-line);
-  }
-  .consorcio-years {
-    font-size: 18px;
-    font-weight: 900;
-    color: var(--navy);
+    gap: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-soft);
     letter-spacing: -0.01em;
   }
-  .consorcio-years-sub {
-    font-size: 14px;
-    font-weight: 400;
-    color: var(--navy);
-    margin-left: 2px;
+  .doc-brand .dot {
+    width: 4px; height: 4px; border-radius: 50%;
+    background: var(--text-soft); display: inline-block;
   }
 
   /* Título principal */
   .doc-title {
     text-align: center;
-    margin: 36px 0 28px;
+    margin: 28px 0 8px;
   }
   .doc-title h1 {
-    font-size: 28px;
-    font-weight: 900;
-    color: var(--navy);
-    letter-spacing: -0.01em;
-    line-height: 1.15;
-    margin-bottom: 6px;
+    font-size: 40px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.03em;
+    line-height: 1.08;
+    margin-bottom: 12px;
   }
   .doc-title h2 {
-    font-size: 19px;
+    font-size: 21px;
     font-weight: 400;
-    color: var(--navy);
-    letter-spacing: -0.005em;
+    color: var(--text-soft);
+    letter-spacing: -0.015em;
+  }
+
+  .doc-divider {
+    height: 1px;
+    background: var(--sep);
+    margin: 44px 0;
+    border: none;
   }
 
   /* Cuerpo */
-  .doc-body { font-size: 14px; color: var(--text); line-height: 1.65; }
-  .doc-body p { margin-bottom: 14px; }
-  .doc-body strong { font-weight: 700; color: var(--text); }
+  .doc-body { font-size: 17px; color: var(--text); line-height: 1.7; }
+  .doc-body p { margin-bottom: 20px; color: #333336; }
+  .doc-body strong { font-weight: 600; color: var(--text); }
 
   .doc-section-title {
-    font-size: 14px;
+    font-size: 24px;
     font-weight: 700;
-    color: var(--navy);
-    margin-top: 22px;
-    margin-bottom: 10px;
+    color: var(--text);
+    letter-spacing: -0.02em;
+    margin-top: 48px;
+    margin-bottom: 18px;
   }
 
   .doc-list {
     list-style: none;
     counter-reset: item;
-    margin-bottom: 16px;
+    margin-bottom: 24px;
   }
   .doc-list li {
     counter-increment: item;
-    padding-left: 28px;
+    padding-left: 40px;
     position: relative;
-    margin-bottom: 10px;
-    font-size: 14px;
-    line-height: 1.6;
+    margin-bottom: 16px;
+    font-size: 17px;
+    line-height: 1.65;
+    color: #333336;
   }
   .doc-list li::before {
-    content: counter(item) ".";
+    content: counter(item);
     position: absolute;
-    left: 0;
-    font-weight: 700;
-    color: var(--text);
+    left: 0; top: 1px;
+    width: 26px; height: 26px;
+    background: var(--blue-soft);
+    color: var(--blue);
+    border-radius: 50%;
+    font-size: 13px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .doc-bullets {
     list-style: none;
-    margin-bottom: 16px;
+    margin-bottom: 24px;
   }
   .doc-bullets li {
-    padding-left: 18px;
+    padding-left: 26px;
     position: relative;
-    margin-bottom: 8px;
-    font-size: 14px;
-    line-height: 1.6;
+    margin-bottom: 14px;
+    font-size: 17px;
+    line-height: 1.65;
+    color: #333336;
   }
   .doc-bullets li::before {
-    content: '•';
+    content: '';
     position: absolute;
-    left: 4px;
-    color: var(--text);
-    font-weight: 700;
+    left: 6px; top: 12px;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--blue);
   }
 
   /* Tabla de premios */
   .prize-table-wrap {
-    margin: 22px auto;
-    max-width: 540px;
+    margin: 28px 0;
   }
   .prize-table {
     width: 100%;
     border-collapse: collapse;
-    border-radius: 8px;
+    border-radius: var(--radius-sm);
     overflow: hidden;
-    box-shadow: 0 2px 8px rgba(15,44,82,0.08);
+    background: var(--bg);
+    box-shadow: inset 0 0 0 1px var(--sep);
   }
   .prize-table thead.title-row th {
-    background: var(--navy);
-    color: var(--white);
-    font-size: 14px;
+    background: transparent;
+    color: var(--text);
+    font-size: 18px;
     font-weight: 700;
-    padding: 11px 14px;
-    text-align: center;
-    letter-spacing: 0.01em;
+    letter-spacing: -0.015em;
+    padding: 20px 24px 4px;
+    text-align: left;
   }
   .prize-table thead.head-row th {
-    background: var(--beige);
-    color: var(--navy);
-    font-weight: 700;
-    font-size: 13px;
-    padding: 10px 14px;
+    background: transparent;
+    color: var(--text-soft);
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    padding: 14px 24px;
     text-align: center;
-    border-bottom: 1px solid #d4c8b5;
+    border-bottom: 1px solid var(--sep);
   }
-  .prize-table thead.head-row th:first-child { text-align: left; padding-left: 28px; }
-  .prize-table thead.head-row th:last-child { text-align: right; padding-right: 28px; }
+  .prize-table thead.head-row th:first-child { text-align: left; }
+  .prize-table thead.head-row th:last-child { text-align: right; }
 
   .prize-table td {
-    background: var(--white);
-    padding: 9px 14px;
-    border-bottom: 1px solid #f0eee9;
-    font-size: 13px;
+    background: transparent;
+    padding: 15px 24px;
+    border-bottom: 1px solid var(--sep);
+    font-size: 16px;
     color: var(--text);
     text-align: center;
   }
-  .prize-table td:first-child { text-align: left; padding-left: 28px; }
-  .prize-table td:last-child { text-align: right; padding-right: 28px; font-weight: 700; }
-  .prize-table tr:last-child td { border-bottom: none; }
+  .prize-table td:first-child { text-align: left; color: var(--text-soft); }
+  .prize-table td:last-child { text-align: right; font-weight: 600; color: var(--blue); }
+  .prize-table tbody tr:last-child td { border-bottom: none; }
 
   /* Tabla sucursales */
-  .branch-table-wrap { margin: 18px 0 24px; overflow-x: auto; }
+  .branch-table-wrap { margin: 24px 0; overflow-x: auto; }
   .branch-table {
     width: 100%;
     border-collapse: collapse;
-    border-radius: 8px;
+    border-radius: var(--radius-sm);
     overflow: hidden;
-    font-size: 12.5px;
-    box-shadow: 0 2px 8px rgba(15,44,82,0.08);
+    font-size: 15px;
+    background: var(--bg);
+    box-shadow: inset 0 0 0 1px var(--sep);
   }
   .branch-table thead.title-row th {
-    background: var(--navy);
-    color: var(--white);
-    font-size: 13px;
+    background: transparent;
+    color: var(--text);
+    font-size: 18px;
     font-weight: 700;
-    padding: 10px 12px;
-    text-align: center;
+    letter-spacing: -0.015em;
+    padding: 20px 20px 4px;
+    text-align: left;
   }
   .branch-table thead.head-row th {
-    background: var(--beige);
-    color: var(--navy);
-    font-weight: 700;
-    padding: 9px 12px;
+    background: transparent;
+    color: var(--text-soft);
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    padding: 14px 20px;
     text-align: left;
-    border-bottom: 1px solid #d4c8b5;
+    border-bottom: 1px solid var(--sep);
     vertical-align: top;
   }
   .branch-table td {
-    background: var(--white);
-    padding: 7px 12px;
-    border-bottom: 1px solid #f0eee9;
-    color: var(--text);
+    background: transparent;
+    padding: 12px 20px;
+    border-bottom: 1px solid var(--sep);
+    color: #333336;
     vertical-align: top;
     line-height: 1.5;
   }
-  .branch-table tr:last-child td { border-bottom: none; }
+  .branch-table tbody tr:last-child td { border-bottom: none; }
 
   /* Footer del doc */
   .doc-footer {
-    background: var(--navy);
-    padding: 22px;
+    padding: 28px 72px 40px;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 6px;
+    border-top: 1px solid var(--sep);
   }
-  .doc-footer-logo {
-    font-size: 22px;
-    font-weight: 900;
-    color: var(--white);
-    letter-spacing: -0.01em;
-  }
-  .doc-footer-mark {
-    width: 12px; height: 12px;
-    background: var(--crimson);
-    margin-left: 4px;
+  .doc-footer-text {
+    font-size: 12px;
+    color: var(--text-soft);
+    font-weight: 400;
+    letter-spacing: -0.005em;
   }
 
   /* Acciones */
   .doc-actions {
-    max-width: 880px;
-    margin: 16px auto 0;
-    padding: 0 20px;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 4px 32px 48px;
     display: flex;
-    justify-content: flex-end;
-    gap: 10px;
+    justify-content: center;
+    gap: 12px;
     flex-wrap: wrap;
   }
   .action-btn {
-    background: var(--white);
-    color: var(--navy);
-    border: 1.5px solid var(--navy);
-    padding: 9px 16px;
-    border-radius: 6px;
-    font-family: 'Lato', sans-serif;
-    font-size: 12px;
-    font-weight: 700;
+    background: var(--blue);
+    color: #fff;
+    border: none;
+    padding: 13px 28px;
+    border-radius: 980px;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 500;
     cursor: pointer;
     text-decoration: none;
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    transition: all 0.2s;
-    letter-spacing: 0.03em;
+    gap: 8px;
+    transition: transform 0.2s var(--ease), background 0.2s var(--ease), box-shadow 0.2s var(--ease);
+    letter-spacing: -0.01em;
+    box-shadow: var(--shadow-xs);
   }
-  .action-btn:hover { background: var(--navy); color: var(--white); }
+  .action-btn:hover { background: #0847a0; transform: translateY(-1px); box-shadow: var(--shadow-sm); }
+  .action-btn:active { transform: translateY(0) scale(0.98); }
 
   /* ═══ RESPONSIVE ═══ */
+
+  /* Tablet: sidebar más estrecha */
+  @media (max-width: 1024px) and (min-width: 861px) {
+    .sidebar { width: 248px; }
+    .cat-subtitle { display: none; }
+    .cat-title { font-size: 14.5px; }
+  }
+
+  /* Móvil / tablet estrecho: sidebar como drawer deslizante */
+  @media (max-width: 860px) {
+    .menu-toggle { display: inline-flex; }
+    .topbar-brand { margin: 0 auto 0 0; }
+
+    .sidebar {
+      position: absolute;
+      top: 0; left: 0; bottom: 0;
+      width: 300px;
+      max-width: 84vw;
+      transform: translateX(-100%);
+      transition: transform 0.28s var(--ease);
+      box-shadow: 0 0 40px rgba(0,0,0,0.14);
+      background: var(--bg);
+    }
+    .shell-body.drawer-open .sidebar { transform: translateX(0); }
+    .shell-body.drawer-open .sidebar-overlay {
+      display: block;
+      opacity: 1;
+    }
+    .cat-subtitle { display: block; }
+  }
+
   @media (max-width: 720px) {
-    .doc-inner { padding: 32px 24px 24px; }
-    .doc-title h1 { font-size: 24px; }
-    .doc-title h2 { font-size: 17px; }
-    .consorcio-text { font-size: 24px; }
-    .consorcio-years { font-size: 16px; }
-    .consorcio-years-sub { font-size: 13px; }
-    .consorcio-mark svg { width: 32px; height: 32px; }
-    .doc-body { font-size: 13.5px; }
-    .doc-list li, .doc-bullets li { font-size: 13.5px; }
-    .prize-table thead.title-row th { font-size: 13px; }
-    .prize-table thead.head-row th { font-size: 12px; padding: 9px 10px; }
-    .prize-table thead.head-row th:first-child { padding-left: 14px; }
-    .prize-table thead.head-row th:last-child { padding-right: 14px; }
-    .prize-table td { font-size: 12.5px; padding: 8px 10px; }
-    .prize-table td:first-child { padding-left: 14px; }
-    .prize-table td:last-child { padding-right: 14px; }
-    .branch-table { font-size: 11.5px; }
-    .branch-table thead.head-row th, .branch-table td { padding: 7px 9px; }
-    .doc-footer-logo { font-size: 19px; }
+    .doc-wrap { padding: 28px 18px 8px; }
+    .doc-actions { padding: 4px 18px 40px; }
+    .doc-inner { padding: 40px 28px 32px; }
+    .doc-footer { padding: 24px 28px 30px; }
+    .doc-title h1 { font-size: 32px; }
+    .doc-title h2 { font-size: 19px; }
+    .doc-section-title { font-size: 21px; margin-top: 38px; }
+    .doc-body { font-size: 16px; }
+    .doc-list li, .doc-bullets li { font-size: 16px; }
+    .doc-divider { margin: 36px 0; }
+    .prize-table thead.title-row th,
+    .branch-table thead.title-row th { font-size: 17px; }
+    .prize-table td { font-size: 15px; padding: 14px 18px; }
+    .prize-table thead.head-row th { padding: 13px 18px; }
+    .branch-table { font-size: 14px; }
   }
 
   @media (max-width: 480px) {
-    .doc-inner { padding: 26px 18px 20px; }
-    .doc-title h1 { font-size: 21px; }
-    .doc-title h2 { font-size: 15px; }
-    .consorcio-logo { gap: 10px; }
-    .consorcio-text { font-size: 20px; }
-    .consorcio-years { font-size: 14px; }
-    .consorcio-years-sub { font-size: 12px; }
-    .consorcio-mark svg { width: 28px; height: 28px; }
-    .topbar { padding: 12px 16px; }
-    .topbar-brand { font-size: 12px; }
-    .topbar-badge { font-size: 9px; padding: 4px 8px; }
-    .selector-wrap, .doc-wrap, .doc-actions { padding: 0 16px; }
-    .doc-actions { justify-content: stretch; }
+    .topbar { padding: 13px 16px; }
+    .topbar-brand { font-size: 13px; gap: 9px; }
+    .doc-wrap { padding: 22px 16px 4px; }
+    .doc-actions { padding: 4px 16px 36px; }
+    .doc-inner { padding: 32px 20px 26px; }
+    .doc-footer { padding: 22px 20px 28px; }
+    .doc-title h1 { font-size: 27px; }
+    .doc-title h2 { font-size: 17px; }
+    .doc-section-title { font-size: 19px; }
+    .doc-body, .doc-list li, .doc-bullets li { font-size: 15px; }
     .action-btn { flex: 1; justify-content: center; }
-  }
-
-  @media (min-width: 900px) {
-    .category-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
   }
 
   /* Print */
   @media print {
-    .topbar, .selector-wrap, .doc-actions { display: none; }
-    body { background: white; padding: 0; }
+    body { height: auto; overflow: visible; background: #fff; }
+    .app { display: block; height: auto; }
+    .topbar, .menu-toggle, .sidebar, .sidebar-overlay, .doc-actions { display: none !important; }
+    .shell-body { display: block; }
+    .doc-pane { height: auto; overflow: visible; }
+    .doc-wrap { padding: 0; max-width: none; }
     .doc { box-shadow: none; border-radius: 0; }
+    .doc-inner { padding: 40px 48px; }
   }
 </style>
 </head>
 <body>
 
-<!-- TOP BAR -->
-<header class="topbar">
-  <div class="topbar-brand">
-    <span class="topbar-brand-mark"></span>
-    LarrainVial × Consorcio
+<div class="app">
+
+  <!-- TOP BAR -->
+  <header class="topbar">
+    <button class="menu-toggle" id="menuToggle" aria-label="Abrir categorías">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      Categorías
+    </button>
+    <div class="topbar-brand">
+      <span>LarrainVial Asset Management</span>
+      <span class="dot"></span>
+      <span class="sec">Consorcio</span>
+    </div>
+  </header>
+
+  <div class="shell-body" id="shellBody">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-head">
+        <div class="sidebar-brand">LarrainVial Asset Management</div>
+        <div class="sidebar-sub">Bases Concurso 2026</div>
+      </div>
+      <hr class="sidebar-sep">
+
+      <nav class="category-grid" id="categoryGrid">
+        <button class="cat-btn active" data-base="ffvv">
+          <span class="cat-icon">FFVV</span>
+          <span class="cat-text">
+            <span class="cat-title">Ejecutivos FFVV</span>
+            <span class="cat-subtitle">Canal Fuerza de Ventas</span>
+          </span>
+        </button>
+        <button class="cat-btn" data-base="jjvv">
+          <span class="cat-icon">JJVV</span>
+          <span class="cat-text">
+            <span class="cat-title">Jefes de Venta</span>
+            <span class="cat-subtitle">Canal Fuerza de Ventas</span>
+          </span>
+        </button>
+        <button class="cat-btn" data-base="rel">
+          <span class="cat-icon">REL</span>
+          <span class="cat-text">
+            <span class="cat-title">Ejecutivos Relación</span>
+            <span class="cat-subtitle">Canal Relación</span>
+          </span>
+        </button>
+        <button class="cat-btn" data-base="jjoo">
+          <span class="cat-icon">JJOO</span>
+          <span class="cat-text">
+            <span class="cat-title">Jefes de Oficina</span>
+            <span class="cat-subtitle">Canal Relación</span>
+          </span>
+        </button>
+        <button class="cat-btn" data-base="ases">
+          <span class="cat-icon">ASES</span>
+          <span class="cat-text">
+            <span class="cat-title">Asesores LVAM</span>
+            <span class="cat-subtitle">Asesores de Inversión</span>
+          </span>
+        </button>
+      </nav>
+
+      <div class="sidebar-foot">
+        <div class="sidebar-meta">
+          <div class="sidebar-meta-label">Período del concurso</div>
+          <div class="sidebar-meta-value">Abril – Junio 2026</div>
+          <div class="sidebar-meta-row">
+            <span>5 categorías</span>
+            <span>Actualizado: Julio 2026</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- OVERLAY (drawer móvil) -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- PANEL DOCUMENTO -->
+    <main class="doc-pane" id="docPane">
+      <div class="doc-wrap">
+        <article class="doc" id="doc"></article>
+      </div>
+      <div class="doc-actions">
+        <button class="action-btn" id="printBtn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+          Imprimir
+        </button>
+      </div>
+    </main>
+
   </div>
-  <span class="topbar-badge">Avanzadas 2026</span>
-</header>
-
-<!-- SELECTOR -->
-<div class="selector-wrap">
-  <div class="selector-label">Selecciona la base según tu categoría</div>
-  <div class="category-grid" id="categoryGrid">
-    <button class="cat-btn active" data-base="ffvv">
-      <span class="cat-icon">FFVV</span>
-      <span class="cat-text">
-        <span class="cat-title">Ejecutivos Canal Fuerza de Ventas</span>
-        <span class="cat-subtitle">Bases para ejecutivos del canal FFVV</span>
-      </span>
-      <svg class="cat-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-    </button>
-    <button class="cat-btn" data-base="jjvv">
-      <span class="cat-icon">JJVV</span>
-      <span class="cat-text">
-        <span class="cat-title">Jefes de Venta</span>
-        <span class="cat-subtitle">Bases para Jefes de Venta canal FFVV</span>
-      </span>
-      <svg class="cat-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-    </button>
-    <button class="cat-btn" data-base="rel">
-      <span class="cat-icon">REL</span>
-      <span class="cat-text">
-        <span class="cat-title">Ejecutivos Canal Relación</span>
-        <span class="cat-subtitle">Bases para ejecutivos del canal Relación</span>
-      </span>
-      <svg class="cat-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-    </button>
-    <button class="cat-btn" data-base="jjoo">
-      <span class="cat-icon">JJOO</span>
-      <span class="cat-text">
-        <span class="cat-title">Jefes de Oficina</span>
-        <span class="cat-subtitle">Bases para Jefes de Oficina canal Relación</span>
-      </span>
-      <svg class="cat-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-    </button>
-    <button class="cat-btn" data-base="ases">
-      <span class="cat-icon">ASES</span>
-      <span class="cat-text">
-        <span class="cat-title">Asesores de Inversión y Jefes LVAM</span>
-        <span class="cat-subtitle">Bases para Asesores y Jefes Comerciales LVAM</span>
-      </span>
-      <svg class="cat-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-    </button>
-  </div>
-</div>
-
-<!-- DOCUMENTO -->
-<div class="doc-wrap">
-  <article class="doc" id="doc"></article>
-</div>
-
-<!-- ACCIONES -->
-<div class="doc-actions">
-  <button class="action-btn" id="printBtn">
-    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
-    Imprimir
-  </button>
 </div>
 
 <script>
@@ -569,7 +716,7 @@ const BASES = {
     intro: 'Junto a LarrainVial premiaremos a los mejores ejecutivos del canal Fuerza de Venta con mayor captación neta obtenida durante el periodo. Para efectos del concurso, se considerarán las inversiones realizadas en <strong>Fondos Mutuos, Seguro Gold, Traspasos de APV e Inyecciones CUI.</strong>',
     requisitos: [
       'Registrar durante el periodo, una captación neta superior a MM$70 en el caso de ejecutivos de Santiago, y superior a MM$60 en el caso de ejecutivos de Regiones.',
-      'Contar con captación en al menos tres de las cuatro líneas de producto consideradas para el concurso: Fondos Mutuos, Seguro Gold, Traspasos APV e Inyecciones CUI.'
+      'Contar con captación en al menos dos de las cuatro líneas de producto consideradas para el concurso: Fondos Mutuos, Seguro Gold, Traspasos APV e Inyecciones CUI.'
     ],
     tablaTitulo: 'Ejecutivos de Venta',
     tablaFilas: [
@@ -606,7 +753,7 @@ const BASES = {
     requisitos: [
       'Registrar, durante el periodo del concurso, una captación neta superior a MM$300 en el caso de Jefes de Ventas de Santiago, y superior a MM$250 en el caso de Jefes de Venta de Regiones.',
       'Contar con al menos 30% de sus ejecutivos registrando ventas en Fondos Mutuos superiores a MM$3 durante el periodo del concurso.',
-      'Contar con captación en al menos tres de las cuatro líneas de producto consideradas para el concurso: Fondos Mutuos, Seguro Gold, Traspasos APV e Inyecciones CUI.'
+      'Contar con captación en al menos dos de las cuatro líneas de producto consideradas para el concurso: Fondos Mutuos, Seguro Gold, Traspasos APV e Inyecciones CUI.'
     ],
     tablaTitulo: 'Jefes de Venta',
     tablaFilas: [
@@ -641,7 +788,7 @@ const BASES = {
     intro: 'Junto a LarrainVial premiaremos a los mejores ejecutivos del canal Relación con mayor captación neta obtenida durante el periodo. Para efectos del concurso, se considerarán las inversiones realizadas en <strong>Fondos Mutuos, Seguro Gold, Traspasos de APV e Inyecciones CUI.</strong>',
     requisitos: [
       'Registrar durante el periodo, una captación neta superior a MM$55 en el caso de ejecutivos de Santiago, y superior a MM$45 en el caso de ejecutivos de Regiones.',
-      'Contar con captación en al menos tres de las cuatro líneas de producto consideradas para el concurso: Fondos Mutuos, Seguro Gold, Traspasos APV e Inyecciones CUI.'
+      'Contar con captación en al menos dos de las cuatro líneas de producto consideradas para el concurso: Fondos Mutuos, Seguro Gold, Traspasos APV e Inyecciones CUI.'
     ],
     tablaTitulo: 'Ejecutivos Canal Relación',
     tablaFilas: [
@@ -676,8 +823,8 @@ const BASES = {
     intro: 'Junto a LarrainVial premiaremos a los Jefes de Oficina con mayor captación neta obtenida durante el periodo. Para efectos del concurso, se considerarán las inversiones realizadas en <strong>Fondos Mutuos, Seguro Gold, Traspasos de APV e Inyecciones CUI.</strong>',
     requisitos: [
       'Registrar, durante el periodo del concurso, una captación neta superior a MM$500 en el caso de Jefes de Oficina de Santiago, y superior a MM$300 en el caso de Jefes de Oficina de Regiones.',
-      'Contar con al menos el 70% de sus ejecutivos registrando ventas en Fondos Mutuos superiores a MM$3 para el caso de Santiago, y al menos el 65% para el caso de Regiones, durante el período del concurso.',
-      'Contar con captación en al menos tres de las cuatro líneas de producto consideradas para el concurso: Fondos Mutuos, Seguro Gold, Traspasos APV e Inyecciones CUI.'
+      'Contar con al menos el 50% de sus ejecutivos registrando ventas en Fondos Mutuos superiores a MM$3 para el caso de Santiago, y al menos el 50% para el caso de Regiones, durante el período del concurso.',
+      'Contar con captación en al menos dos de las cuatro líneas de producto consideradas para el concurso: Fondos Mutuos, Seguro Gold, Traspasos APV e Inyecciones CUI.'
     ],
     tablaTitulo: 'Jefes de Oficina Canal Relación',
     tablaFilas: [
@@ -740,26 +887,19 @@ const BASES = {
 
 const HEADER_HTML = `
   <div class="doc-header">
-    <div class="consorcio-logo">
-      <span class="consorcio-mark">
-        <svg width="38" height="38" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M8 46 L30 14 L36 14 L18 38 L52 38 L52 46 Z" fill="currentColor"/>
-          <path d="M14 36 L30 14 L34 19 L20 36 Z" fill="white" opacity="0.25"/>
-        </svg>
-      </span>
-      <span class="consorcio-text">consorcio</span>
-      <span class="consorcio-divider"></span>
-      <span><span class="consorcio-years">110</span><span class="consorcio-years-sub"> años</span></span>
+    <div class="doc-brand">
+      <span>LarrainVial Asset Management</span>
+      <span class="dot"></span>
+      <span>Consorcio</span>
     </div>
   </div>
-`;
+`
 
 const FOOTER_HTML = `
   <div class="doc-footer">
-    <span class="doc-footer-logo">LarrainVial</span>
-    <span class="doc-footer-mark"></span>
+    <span class="doc-footer-text">LarrainVial Asset Management • Consorcio</span>
   </div>
-`;
+`
 
 function renderPrizeTable(titulo, filas) {
   const rows = filas.map(f => `<tr><td>${f[0]}</td><td>${f[1]}</td><td>${f[2]}</td></tr>`).join('');
@@ -853,6 +993,7 @@ function renderBase(key) {
         <h1>${b.title}</h1>
         <h2>${b.subtitle}</h2>
       </div>
+      <hr class="doc-divider">
       <div class="doc-body">${body}</div>
     </div>
     ${FOOTER_HTML}
@@ -863,8 +1004,12 @@ function renderBase(key) {
    LÓGICA DE INTERACCIÓN
    ═══════════════════════════════════════════════════════════════ */
 
-const grid  = document.getElementById('categoryGrid');
-const docEl = document.getElementById('doc');
+const grid       = document.getElementById('categoryGrid');
+const docEl      = document.getElementById('doc');
+const docPane    = document.getElementById('docPane');
+const shellBody  = document.getElementById('shellBody');
+const menuToggle = document.getElementById('menuToggle');
+const overlay    = document.getElementById('sidebarOverlay');
 
 function loadBase(key) {
   docEl.innerHTML = renderBase(key);
@@ -875,15 +1020,29 @@ function loadBase(key) {
   history.replaceState(null, '', '#' + key);
 }
 
+/* Drawer móvil */
+function openDrawer()  { shellBody.classList.add('drawer-open'); }
+function closeDrawer() { shellBody.classList.remove('drawer-open'); }
+
+menuToggle.addEventListener('click', openDrawer);
+overlay.addEventListener('click', closeDrawer);
+
 grid.addEventListener('click', (e) => {
   const btn = e.target.closest('.cat-btn');
   if (!btn) return;
   const key = btn.getAttribute('data-base');
   loadBase(key);
 
-  if (window.innerWidth < 900) {
-    document.querySelector('.doc-wrap').scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
+  // El documento (panel derecho) vuelve al inicio
+  docPane.scrollTo({ top: 0, behavior: 'smooth' });
+
+  // En móvil, cerrar el drawer tras seleccionar
+  closeDrawer();
+});
+
+// Cerrar drawer con Escape
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeDrawer();
 });
 
 document.getElementById('printBtn').addEventListener('click', () => window.print());
