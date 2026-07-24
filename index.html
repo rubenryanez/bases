@@ -771,7 +771,7 @@
         <button class="cat-btn" data-base="ases">
           <span class="cat-icon">ASES</span>
           <span class="cat-text">
-            <span class="cat-title">Asesores LVAM</span>
+            <span class="cat-title">Asesores CNS - JC LVAM</span>
             <span class="cat-subtitle">Asesores de Inversión</span>
           </span>
         </button>
@@ -841,7 +841,8 @@ const BASES = {
       'No se considera la auto venta o venta entre Ejecutivos del canal.',
       'El premio se pagará vía liquidación al mes siguiente.',
       'El ejecutivo debe estar vigente al final del periodo del concurso, para recibir premio.',
-      'La captación neta obtenida durante periodo significa que se considerará toda la captación bruta del ejecutivo, pero se descontarán los rescates del cliente que aporte en el mismo periodo, generando el neto del cliente, por ejemplo: si el cliente ingresa $100 millones en enero y los rescata en febrero el bruto neto del periodo es $0.',
+      'La captación neta obtenida durante periodo significa que se considerará toda la captación bruta del ejecutivo, pero se descontarán los rescates del cliente que aporte en el mismo periodo, generando el neto del cliente, por ejemplo: si el cliente ingresa $100 millones en agosto y los rescata en septiembre el bruto neto del periodo es $0.',
+      'Los movimientos serán asignados según el siguiente orden de priorización: 1) ejecutivo referidor, 2) ejecutivo procesador y 3) ejecutivo carterizado. En caso de que no exista un ejecutivo asociado en ninguna de las categorías señaladas, el movimiento no será asignado ni registrado para ningún ejecutivo.',
       'La premiación se realizará en la reunión mensual de octubre 2026.'
     ],
     reconocimientos: [
@@ -878,7 +879,8 @@ const BASES = {
       'No se considera la auto venta o venta entre Ejecutivos del canal.',
       'El premio se pagará vía liquidación al mes siguiente.',
       'El jefe de venta debe estar vigente al final del periodo del concurso, para recibir premio.',
-      'La captación neta del periodo significa que se considerará toda la captación bruta del ejecutivo, pero se descontarán los rescates del cliente que aporte en el mismo periodo, generando el neto del cliente, por ejemplo: si el cliente ingresa $100 millones en enero y los rescata en febrero el bruto neto del periodo es $0.',
+      'La captación neta del periodo significa que se considerará toda la captación bruta del ejecutivo, pero se descontarán los rescates del cliente que aporte en el mismo periodo, generando el neto del cliente, por ejemplo: si el cliente ingresa $100 millones en agosto y los rescata en septiembre el bruto neto del periodo es $0.',
+      'Los movimientos serán asignados según el siguiente orden de priorización: 1) ejecutivo referidor, 2) ejecutivo procesador y 3) ejecutivo carterizado. En caso de que no exista un ejecutivo asociado en ninguna de las categorías señaladas, el movimiento no será asignado ni registrado para ningún ejecutivo.',
       'La premiación se realizará en la reunión mensual de octubre 2026.'
     ],
     reconocimientos: [
@@ -901,7 +903,8 @@ const BASES = {
       ['Ranking', '1° Lugar', '$200.000'],
       ['Ranking', '2° Lugar', '$150.000'],
       ['Ranking', '3° Lugar', '$100.000'],
-      ['Sorteo',  '1 Sorteo', '$50.000']
+      ['Sorteo',  '1 Sorteo', '$50.000'],
+      ['Reconocimiento', '3 Reconocimientos', '$50.000']
     ],
     sorteo: 'Los ejecutivos que cumplan los requisitos del concurso y que finalicen el período desde el 4° lugar en adelante en el Ranking podrán participar en un sorteo. Para dicho sorteo, se asignará un cupo por cada MM$10 de captación neta. Entre más cupones se tengan, mayores serán las probabilidades de ganar.',
     consideraciones: [
@@ -912,7 +915,8 @@ const BASES = {
       'No se considera la auto venta o venta entre Ejecutivos del canal.',
       'El premio se pagará vía liquidación al mes siguiente.',
       'El ejecutivo debe estar vigente al final del periodo del concurso, para recibir premio.',
-      'La captación neta obtenida durante periodo significa que se considerará toda la captación bruta del ejecutivo, pero se descontarán los rescates del cliente que aporte en el mismo periodo, generando el neto del cliente, por ejemplo: si el cliente ingresa $100 millones en enero y los rescata en febrero el bruto neto del periodo es $0.',
+      'La captación neta obtenida durante periodo significa que se considerará toda la captación bruta del ejecutivo, pero se descontarán los rescates del cliente que aporte en el mismo periodo, generando el neto del cliente, por ejemplo: si el cliente ingresa $100 millones en agosto y los rescata en septiembre el bruto neto del periodo es $0.',
+      'Los movimientos serán asignados según el siguiente orden de priorización: 1) ejecutivo referidor, 2) ejecutivo procesador y 3) ejecutivo carterizado. En caso de que no exista un ejecutivo asociado en ninguna de las categorías señaladas, el movimiento no será asignado para ningún ejecutivo.',
       'La premiación se realizará en la reunión mensual de octubre 2026.'
     ],
     reconocimientos: [
@@ -948,7 +952,8 @@ const BASES = {
       'No se considera la auto venta o venta entre Ejecutivos del canal.',
       'El premio se pagará vía liquidación al mes siguiente.',
       'El Jefe de Oficina debe estar vigente al final del periodo del concurso, para recibir premio.',
-      'La captación neta del periodo significa que se considerará toda la captación bruta del ejecutivo, pero se descontarán los rescates del cliente que aporte en el mismo periodo, generando el neto del cliente, por ejemplo: si el cliente ingresa $100 millones en enero y los rescata en febrero el bruto neto del periodo es $0.',
+      'La captación neta del periodo significa que se considerará toda la captación bruta del ejecutivo, pero se descontarán los rescates del cliente que aporte en el mismo periodo, generando el neto del cliente, por ejemplo: si el cliente ingresa $100 millones en agosto y los rescata en septiembre el bruto neto del periodo es $0.',
+      'Los movimientos serán asignados según el siguiente orden de priorización: 1) ejecutivo referidor, 2) ejecutivo procesador y 3) ejecutivo carterizado. En caso de que no exista un ejecutivo asociado en ninguna de las categorías señaladas, el movimiento no será asignado para ningún ejecutivo.',
       'La premiación se realizará en la reunión mensual de octubre 2026.'
     ]
   },
@@ -981,7 +986,8 @@ const BASES = {
       'No se considera la auto venta o venta entre Ejecutivos del canal.',
       'El premio se pagará vía liquidación al mes siguiente.',
       'Asesor de inversiones y/o jefe comercial debe estar vigente al final del periodo del concurso, para recibir premio.',
-      'La captación neta obtenida durante periodo significa que se considerará toda la captación bruta del ejecutivo, pero se descontarán los rescates del cliente que aporte en el mismo periodo, generando el neto del cliente, por ejemplo: si el cliente ingresa $100 millones en enero y los rescata en febrero el bruto neto del periodo es $0.',
+      'La captación neta obtenida durante periodo significa que se considerará toda la captación bruta del ejecutivo, pero se descontarán los rescates del cliente que aporte en el mismo periodo, generando el neto del cliente, por ejemplo: si el cliente ingresa $100 millones en agosto y los rescata en septiembre el bruto neto del periodo es $0.',
+      'Los movimientos serán asignados según el siguiente orden de priorización: 1) ejecutivo referidor, 2) ejecutivo procesador y 3) ejecutivo carterizado. En caso de que no exista un ejecutivo asociado en ninguna de las categorías señaladas, el movimiento no será asignado ni registrado para ningún ejecutivo.',
       'La premiación se realizará en la reunión mensual de octubre 2026.'
     ]
   }
